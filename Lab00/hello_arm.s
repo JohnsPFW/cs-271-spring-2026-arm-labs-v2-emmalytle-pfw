@@ -2,8 +2,8 @@
 // CS 271 Computer Architecture - Lab 00: Introduction to ARM Assembly
 // Purdue University Fort Wayne
 // =============================================================================
-// STUDENT NAME: ___________________
-// DATE:         ___________________
+// STUDENT NAME: Emma Lytle
+// DATE: 01/21/2026
 // =============================================================================
 //
 // LEARNING OBJECTIVES:
@@ -52,6 +52,7 @@ _start:
     //
     // YOUR CODE HERE:
 
+    MOV X3, #25
 
     // -------------------------------------------------------------------------
     // EXERCISE 2: Perform addition
@@ -61,6 +62,7 @@ _start:
     //
     // YOUR CODE HERE:
 
+    ADD X4, X2, X3
 
     // -------------------------------------------------------------------------
     // EXERCISE 3: Perform subtraction
@@ -71,6 +73,7 @@ _start:
     //
     // YOUR CODE HERE:
 
+    SUB X5, X0, X1
 
     // -------------------------------------------------------------------------
     // EXERCISE 4: Create your own calculation
@@ -81,12 +84,16 @@ _start:
     //
     // YOUR CODE HERE:
 
+    MOV X6, #5
+    ADD X4, X4, X4
+    SUB X6, X6, X3
 
     // =========================================================================
     // PROGRAM TERMINATION
     // =========================================================================
     // The YIELD instruction signals to the simulator that your program
     // has completed successfully. DO NOT REMOVE THIS LINE!
+    
     YIELD
 
 // =============================================================================
