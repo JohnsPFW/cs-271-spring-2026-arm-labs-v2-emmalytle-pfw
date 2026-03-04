@@ -2,8 +2,8 @@
 // CS 271 Computer Architecture - Lab 01: String Copy (STRCPY)
 // Purdue University Fort Wayne
 // =============================================================================
-// STUDENT NAME: ___________________
-// DATE:         ___________________
+// STUDENT NAME: Emma Lytle
+// DATE: 02/25/2026
 // =============================================================================
 // OBJECTIVE:
 //   Implement a loop that copies a null-terminated string from a source
@@ -57,14 +57,14 @@ copy_loop:
     // Syntax: LDRB Wt, [Xn]   (Load Register Byte)
     // -------------------------------------------------------------------------
     
-    // YOUR CODE HERE
+    LDRB W2, [X0]
     
     // -------------------------------------------------------------------------
     // TODO #2: Store the byte from W2 to the destination address [X1]
     // Syntax: STRB Wt, [Xn]   (Store Register Byte)
     // -------------------------------------------------------------------------
     
-    // YOUR CODE HERE
+    STRB W2, [X1]
     
     // -------------------------------------------------------------------------
     // TODO #3: Check if the byte was the null terminator (0)
@@ -72,7 +72,7 @@ copy_loop:
     // Syntax: CBZ Wt, label   (Compare and Branch if Zero)
     // -------------------------------------------------------------------------
     
-    // YOUR CODE HERE
+    CBZ W2, done
     
     // -------------------------------------------------------------------------
     // TODO #4: Increment both pointers to the next byte
@@ -80,14 +80,15 @@ copy_loop:
     // Syntax: ADD Xd, Xn, #1
     // -------------------------------------------------------------------------
     
-    // YOUR CODE HERE (two lines)
+    ADD X0, X0, #1
+    ADD X1, X1, #1
     
     // -------------------------------------------------------------------------
     // TODO #5: Loop back to copy the next character
     // Syntax: B label   (Branch - unconditional jump)
     // -------------------------------------------------------------------------
     
-    // YOUR CODE HERE
+    B copy_loop
 
     // =========================================================================
     // STEP 3: Signal Completion (Already done for you)
