@@ -38,8 +38,10 @@ _start:
     // and X1 to point to the destination buffer.
     // DO NOT MODIFY these two lines.
     
-    MOV     X0, #0x50       // X0 = source pointer (address 0x50)
-    MOV     X1, #0x13C      // X1 = destination pointer (address 0x13C)
+    MOV     X0, #5       // loop counter starting at 5
+    MOV     X4, #0       // running sum
+    MOV     X5, #0       // iteration counter
+    MOV     X1, #1      // destination pointer (address 0x13C)
 
     // =========================================================================
     // STEP 2: Implement the Copy Loop (YOUR CODE GOES HERE)
@@ -51,64 +53,18 @@ _start:
     //   4. Increment both pointers
     //   5. Loop back
     
-copy_loop:
-    // -------------------------------------------------------------------------
-    // TODO #1: Load a byte from the source address [X0] into W2
-    // Syntax: LDRB Wt, [Xn]   (Load Register Byte)
-    // -------------------------------------------------------------------------
     
-    LDRB W2, [X0]
-    
-    // -------------------------------------------------------------------------
-    // TODO #2: Store the byte from W2 to the destination address [X1]
-    // Syntax: STRB Wt, [Xn]   (Store Register Byte)
-    // -------------------------------------------------------------------------
-    
-    STRB W2, [X1]
-    
-    // -------------------------------------------------------------------------
-    // TODO #3: Check if the byte was the null terminator (0)
-    // If W2 == 0, branch to 'done'
-    // Syntax: CBZ Wt, label   (Compare and Branch if Zero)
-    // -------------------------------------------------------------------------
-    
-    CBZ W2, done
-    
-    // -------------------------------------------------------------------------
-    // TODO #4: Increment both pointers to the next byte
-    // You need TWO ADD instructions (one for X0, one for X1)
-    // Syntax: ADD Xd, Xn, #1
-    // -------------------------------------------------------------------------
-    
-    ADD X0, X0, #1
-    ADD X1, X1, #1
-    
-    // -------------------------------------------------------------------------
-    // TODO #5: Loop back to copy the next character
-    // Syntax: B label   (Branch - unconditional jump)
-    // -------------------------------------------------------------------------
-    
-    B copy_loop
 
-    // =========================================================================
-    // STEP 3: Signal Completion (Already done for you)
-    // =========================================================================
+sum_loop:
+    ADD     X4, X4, X0      // Add counter into running sum
+    ADD     X5, X5, X1      // Increment iteration count
+    SUBS    X0, X0, X1      // Decrement counter and set flags
+    B.NE    sum_loop        // Loop again while X0 != 0
+
+
+
+
 done:
     // When your loop exits (after copying the null terminator),
     // execution reaches here and YIELD signals success.
     YIELD
-
-// =============================================================================
-// DATA SECTION (DO NOT MODIFY)
-// =============================================================================
-// This section defines the source string and destination buffer in memory.
-// The assembler will place "Hello\0" at address 0x50.
-
-    .data
-    .org 0x50
-source_string:
-    .asciz "Hello"          // "Hello" + null terminator (6 bytes total)
-
-    .org 0x13C
-dest_buffer:
-    .space 16               // 16 bytes reserved for the copied string
